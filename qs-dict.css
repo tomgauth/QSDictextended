@@ -1,0 +1,83 @@
+/*
+Copyright 2018 akovaski
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
+@font-face {
+    font-family: AME;
+    src: url('abbots-morton-experiment/ame.woff');
+}
+html, * {
+    font-family: Helvetica, Corbel, sans-serif, AME;
+    line-height: 1.3em;
+}
+[lang='en-Qaas'] {
+    font-family: AME, Helvetica, Corbel, sans-serif;
+}
+body {
+    background: #3e3e3e;
+}
+#pageContent {
+    max-width: 25rem;
+    min-width: 18rem;
+    margin: 0 auto;
+    background: lightblue;
+    padding: 7px;
+}
+h1 {
+    text-align: center;
+    margin: 0 0 10px 0;
+}
+#word-input {
+    width:15ch;
+}
+
+.OutputArea {
+    min-height: 2.2em;
+}
+.qsOut {
+    font-size: 2em;
+    line-height: 1.6em;
+}
+.qsOut > div {
+    padding: 0.1em 0.3ch 0.3em 0.3ch;
+    border: 1px solid;
+}
+.qsOut > div:nth-child(n+2) {
+    border-top: none;
+}
+.resultPreferred {
+    background: lightgreen;
+}
+.resultNormal {
+    background: #65adc9;
+}
+
+details > p, details > div, details > details {
+    font-size: small;
+    margin: 4px 0 4px 2ch;
+}
+details > details > summary {
+    font-weight: bold;
+}
+#phoneme-details {
+    font-size: small;
+}
+#word-not-found-display {
+    font-weight: bold;
+}
+
+progress {
+    width: 80px;
+}
