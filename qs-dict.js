@@ -29,7 +29,8 @@ function pageLoad() {
     let hash = window.location.hash.substr(1);
     if (hash) {
         let inputElem = document.getElementById("word-input");
-        inputElem.value = hash;
+        inputElem.value = hash;        
+        // add something to handle if the input is multiple words / a word
     }
 
     // Request the CMU dictionary
@@ -277,22 +278,32 @@ function submitWord() {
     let QSOutElem = document.getElementById("quickscript-output");
     let notFoundElem = document.getElementById("word-not-found-display");
 
-    let word = inputElem.value;
-    let results = getQSTranscripts(word);
-    let phenomes = results[0];
-    let manualTranscripts = results[1];
-    let qsTranscripts = results[2];
-    if (manualTranscripts.length === 0 && qsTranscripts.length === 0) {
-        notFoundElem.innerText = "<Word not found: \"" + word + "\">";
+    let fullWord = inputElem.value;
+    let words = fullWord.split(" "); // Split the word into individual words
+
+    let allPhenomes = [];
+    let allManualTranscripts = [];
+    let allQSTranscripts = [];
+
+    for (let word of words) {
+        let results = getQSTranscripts(word);
+        allPhenomes.push(...results[0]);
+        allManualTranscripts.push(...results[1]);
+        allQSTranscripts.push(...results[2]);
+    }
+
+    phenomElem.innerText = allPhenomes.join(" ");
+    QSOutElem.innerHTML = "";
+    addQSOut(QSOutElem, allManualTranscripts, "resultPreferred");
+    addQSOut(QSOutElem, allQSTranscripts, "resultNormal");
+
+    if (allManualTranscripts.length === 0 && allQSTranscripts.length === 0) {
+        notFoundElem.innerText = "<Word not found: \"" + fullWord + "\">";
     } else {
         notFoundElem.innerText = "";
     }
-
-    phenomElem.innerText = phenomes.join("\n");
-    QSOutElem.innerHTML = "";
-    addQSOut(QSOutElem, manualTranscripts, "resultPreferred");
-    addQSOut(QSOutElem, qsTranscripts, "resultNormal");
 }
+
 
 function getQSTranscripts(wordInput) {
     let word = wordInput.toLowerCase();
