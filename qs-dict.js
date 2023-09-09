@@ -318,7 +318,7 @@ function getQSTranscripts(wordInput) {
         if (!manualTranscripts.includes(qsStr) && !qsTranscripts.includes(qsStr)) {
             qsTranscripts.push(qsStr);
         }
-    }
+    }        
     return [phenomes, manualTranscripts, qsTranscripts];
 }
 
@@ -343,13 +343,21 @@ function transformPhenome(phenomeStr, word, usedTransforms) {
 }
 
 function addQSOut(elem, qsStrings, styleClass) {
-    for (let str of qsStrings) {
-        let div = document.createElement("div");
-        div.innerText = str;
-        div.className = styleClass;
+    console.log(qsStrings)
+    let div = document.createElement("div");
+    div.className = styleClass;
 
-        elem.appendChild(div);
+    for (let str of qsStrings) {
+        // If the div already has content, add a newline before appending the next string
+        if (div.innerText) {
+            div.innerText += "\n";
+        }
+        // Append the string to the innerText
+        div.innerText += str;
+        div.innerText += " - ";
     }
+
+    elem.appendChild(div);
 }
 
 // not called anywhere, just used for testing
